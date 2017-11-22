@@ -40,9 +40,15 @@ public class GameOfLife {
 		System.out.println("Before Evolve");
 		this.currentGeneration = this.testGrid; // getting seed from the grid
 		
-		for (int i=0; i<3; i++) {
+		for (int j=0; j<3; j++) {
+			System.out.println("\nGeneration "+this.tickCount);
+			for (int i=0; i<this.currentGeneration.size(); i++) {
+				Cell cell = this.currentGeneration.get(i);
+				System.out.println("["+cell.getX() + ","+cell.getY()+"]="+cell.getCurrentState());
+			}
 			this.generatePointsOfInterest();
 			evolve();
+			this.tickCount++;
 		}
 		
 	}
@@ -67,17 +73,17 @@ public class GameOfLife {
 				this.nextGeneration.add(cell.reproduce());
 			}
 		}
-		System.out.println("Current Generation");
-		for (int i=0; i<this.currentGeneration.size(); i++) {
-			Cell cell = this.currentGeneration.get(i);
-			System.out.println("["+cell.getX() + ","+cell.getY()+"]="+cell.getCurrentState());
-		}
-
-		System.out.println("New Generation");
-		for (int i=0; i<this.nextGeneration.size(); i++) {
-			Cell cell = this.nextGeneration.get(i);
-			System.out.println("["+cell.getX() + ","+cell.getY()+"]="+cell.getCurrentState());
-		}
+//		System.out.println("Current Generation");
+//		for (int i=0; i<this.currentGeneration.size(); i++) {
+//			Cell cell = this.currentGeneration.get(i);
+//			System.out.println("["+cell.getX() + ","+cell.getY()+"]="+cell.getCurrentState());
+//		}
+//
+//		System.out.println("New Generation");
+//		for (int i=0; i<this.nextGeneration.size(); i++) {
+//			Cell cell = this.nextGeneration.get(i);
+//			System.out.println("["+cell.getX() + ","+cell.getY()+"]="+cell.getCurrentState());
+//		}
 		
 		this.currentGeneration = this.nextGeneration;
 		this.nextGeneration = new ArrayList<Cell>();
