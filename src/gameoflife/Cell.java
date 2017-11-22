@@ -17,9 +17,6 @@ public class Cell {
 		this.numberOfAliveNeighbors = 0;
 	}
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-	}
 
 	public int getX() {return this.x;}
 	public int getY() {return this.y;}
