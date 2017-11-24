@@ -2,12 +2,15 @@ package gameoflife;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
@@ -43,32 +46,40 @@ public class Grid {
 
     public class GridPane extends JPanel {
 
+    	ArrayList<CellPane> cp = new ArrayList<CellPane>();
+    	
         public GridPane() {
             setLayout(new GridBagLayout());
 
             GridBagConstraints gbc = new GridBagConstraints();
-            for (int row = 0; row < 15; row++) {
-                for (int col = 0; col < 15; col++) {
+            for (int row = 0; row < 16; row++) {
+                for (int col = 0; col < 16; col++) {
                     gbc.gridx = col;
                     gbc.gridy = row;
 
-                    CellPane cellPane = new CellPane();
+                    CellPane cellPane = new CellPane(row,col);
                     Border border = null;
-                    if (row < 4) {
-                        if (col < 4) {
-                            border = new MatteBorder(1, 1, 0, 0, Color.GRAY);
-                        } else {
-                            border = new MatteBorder(1, 1, 0, 1, Color.GRAY);
-                        }
-                    } else {
-                        if (col < 4) {
-                            border = new MatteBorder(1, 1, 1, 0, Color.GRAY);
-                        } else {
-                            border = new MatteBorder(1, 1, 1, 1, Color.GRAY);
-                        }
-                    }
+//                    if (row < 4) {
+//                        if (col < 4) {
+//                            border = new MatteBorder(1, 1, 0, 0, Color.GRAY);
+//                        } else {
+//                            border = new MatteBorder(1, 1, 0, 1, Color.GRAY);
+//                        }
+//                    } else {
+//                        if (col < 4) {
+//                            border = new MatteBorder(1, 1, 1, 0, Color.GRAY);
+//                        } else {
+//                            border = new MatteBorder(1, 1, 1, 1, Color.GRAY);
+//                        }
+//                    }
+                    border = new MatteBorder(1, 1, 1, 1, Color.GRAY);
                     cellPane.setBorder(border);
                     add(cellPane, gbc);
+                    Component[] components = this.getComponents();
+//                    for ( int i=0; i<components.length; i++) {
+//                    	CellPane c1 = (CellPane)components[i];
+//                    	System.out.println(c1.row+","+c1.col+" = "+c1.state);
+//                    }
                 }
             }
         }
@@ -77,24 +88,38 @@ public class Grid {
     public class CellPane extends JPanel {
 
         private Color defaultBackground;
+        boolean state = false;
+        public int row,col;
 
-        public CellPane() {
+        public CellPane(int row, int col) {
+        	this.row = row;
+        	this.col = col;
+        	defaultBackground = getBackground();
+        	
             addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    defaultBackground = getBackground();
-                    setBackground(Color.BLACK);
+//                    
+//                    setBackground(Color.BLACK);
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    setBackground(defaultBackground);
+//                    setBackground(defaultBackground);
                 }
                 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    int x=e.getX();
-                    int y=e.getY();
+                	if (state) {
+                        setBackground(defaultBackground);
+                        state = false;
+                	}
+                	else {
+                		state = true;
+                		setBackground(Color.BLACK);
+                	}
+                    int x=row;
+                    int y=col;
                     System.out.println(x+","+y);//these co-ords are relative to the component
                 }
                 
