@@ -19,38 +19,35 @@ public class GameOfLife {
 		testGrid = new ArrayList<Cell>();
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	    System.out.println("Hello");
-	    GameOfLife gol = new GameOfLife();
-	    gol.testGrid.add(new Cell(5,6,true));
-	    gol.testGrid.add(new Cell(6,6,true));
-	    gol.testGrid.add(new Cell(4,6,true));
-	    
-
-	    gol.testGrid.add(new Cell(12,11,true));
-	    gol.start();
-	    
-		
-	}
+//	public static void main(String[] args) {
+//
+//	    GameOfLife gol = new GameOfLife();
+//	    gol.testGrid.add(new Cell(5,6,true));
+//	    gol.testGrid.add(new Cell(6,6,true));
+//	    gol.testGrid.add(new Cell(4,6,true));
+//	    
+//
+//	    gol.testGrid.add(new Cell(12,11,true));
+//	    gol.start();
+//	    
+//		
+//	}
 
 	
-	public void start() {
-		System.out.println("Before Evolve");
-		this.currentGeneration = this.testGrid; // getting seed from the grid
+	public ArrayList<Cell> start(ArrayList<Cell> seed) {
+		//System.out.println("Before Evolve");
+		this.currentGeneration = seed; // getting seed from the grid
 		
-		for (int j=0; j<3; j++) {
-			System.out.println("\nGeneration "+this.tickCount);
-			for (int i=0; i<this.currentGeneration.size(); i++) {
-				Cell cell = this.currentGeneration.get(i);
-				System.out.println("["+cell.getX() + ","+cell.getY()+"]="+cell.getCurrentState());
-			}
-			this.generatePointsOfInterest();
-			evolve();
-			this.tickCount++;
-		}
-		
+//		System.out.println("Generation "+this.tickCount);
+//		for (int i=0; i<this.currentGeneration.size(); i++) {
+//			Cell cell = this.currentGeneration.get(i);
+//			System.out.println("["+cell.getX() + ","+cell.getY()+"]="+cell.isAlive());
+//		}
+		this.generatePointsOfInterest();
+		evolve();
+		this.tickCount++;
+		return currentGeneration;
+	
 	}
 	
 	public void stop() {
@@ -59,9 +56,11 @@ public class GameOfLife {
 	
 	public void evolve() {
 		for(int i = 0; i < this.currentGeneration.size(); i++) {
-			//System.out.println("[" + this.currentGeneration.get(i).getX() + "," + this.currentGeneration.get(i).getY() + "]=" + this.currentGeneration.get(i).getCurrentState());
+//			System.out.println("currGen i = [" + this.currentGeneration.get(i).getX() + "," + this.currentGeneration.get(i).getY() + "]=" + this.currentGeneration.get(i).isAlive);
 			Cell cell = this.currentGeneration.get(i);
+			
 			cell.countAliveNeighbors(currentGeneration);
+			//System.out.println("cellNeighbors["+cell.x+","+cell.y+"]="+cell.numberOfAliveNeighbors);
 			
 			if (!cell.isAlive && cell.numberOfAliveNeighbors == 3) {
 				this.nextGeneration.add(cell.reproduce());
@@ -82,7 +81,7 @@ public class GameOfLife {
 //		System.out.println("New Generation");
 //		for (int i=0; i<this.nextGeneration.size(); i++) {
 //			Cell cell = this.nextGeneration.get(i);
-//			System.out.println("["+cell.getX() + ","+cell.getY()+"]="+cell.getCurrentState());
+//			System.out.println("["+cell.getX() + ","+cell.getY()+"]="+cell.isAlive);
 //		}
 		
 		this.currentGeneration = this.nextGeneration;

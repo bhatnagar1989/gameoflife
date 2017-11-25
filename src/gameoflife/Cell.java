@@ -25,15 +25,16 @@ public class Cell {
 
 	public int getX() {return this.x;}
 	public int getY() {return this.y;}
-	public boolean getCurrentState() {return this.isAlive;}
+	public boolean isAlive() {return this.isAlive;}
 	public Cell kill() {return new Cell(x,y,false);}
 	public Cell reproduce() {return new Cell(x,y,true);}
-	public void countAliveNeighbors(ArrayList<Cell> cG) {
+	public void countAliveNeighbors(ArrayList<Cell> currentGen) {
 		// TODO count the alive neighbors and place it inside this.numberOfAliveNeighbors
-		for (int k=0; k<cG.size(); k++) {
-			if (cG.get(k).getX()>=x-1 && cG.get(k).getX()<=x+1 && cG.get(k).getY()>=y-1 && cG.get(k).getY()<=y+1) {
-				if (cG.get(k).getX() != x || cG.get(k).getY()!=y) {
-					if (cG.get(k).getCurrentState()) {
+		for (int k=0; k<currentGen.size(); k++) {
+			Cell cell = currentGen.get(k);
+			if (cell.getX()>=x-1 && cell.getX()<=x+1 && cell.getY()>=y-1 && cell.getY()<=y+1) {
+				if (cell.getX() != this.x || cell.getY() != this.y) {
+					if (cell.isAlive()) {
 						this.numberOfAliveNeighbors++;
 					}
 				}
