@@ -11,7 +11,7 @@ public class GameOfLife {
 	
 	public ArrayList<Cell> testGrid;
 	
-	public int tickCount = 0;
+	
 	
 	public GameOfLife() {
 		currentGeneration = new ArrayList<Cell>();
@@ -45,7 +45,7 @@ public class GameOfLife {
 //		}
 		this.generatePointsOfInterest();
 		evolve();
-		this.tickCount++;
+//		this.tickCount++;
 		return currentGeneration;
 	
 	}

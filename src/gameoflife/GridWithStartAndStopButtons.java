@@ -11,7 +11,7 @@ import javax.swing.*;
 import javax.swing.border.MatteBorder;
 
 public class GridWithStartAndStopButtons {
-   private static final int TIMER_DELAY = 200;
+   private static final int TIMER_DELAY = 100;
 //   private int current_x;
 //   private int current_y;
    private TestPane testPane = new TestPane();
@@ -21,6 +21,13 @@ public class GridWithStartAndStopButtons {
    private JPanel jpanel = new JPanel();
    private GameOfLife gol = new GameOfLife();
    private boolean stopnow = false;
+   private String[] golPatterns= new String[] {"Select Pattern","Block", "Beehive", "Loaf","Boat","Tub","Blinker","Toad",
+		   "Beacon","Pulsar","Pentadecathlon","Glider"};
+   private JComboBox<String> patternsList = new JComboBox<>(golPatterns);
+   private JLabel jlabel ;
+   public int tickCount = 0;
+   
+   private Pattern patterns;
 
    public GridWithStartAndStopButtons() {
       EventQueue.invokeLater(new Runnable() {
@@ -30,35 +37,96 @@ public class GridWithStartAndStopButtons {
                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             }
-            JFrame frame = new JFrame("Testing");
+            JFrame frame = new JFrame("Game of Life");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setLayout(new BorderLayout());
             Container pane = frame.getContentPane();
             
             pane.setComponentOrientation(java.awt.ComponentOrientation.LEFT_TO_RIGHT);
             // !! frame.add(new TestPane());
-            pane.add(testPane, BorderLayout.PAGE_START);
+//            pane.add(testPane, BorderLayout.PAGE_START);
             
-            JLabel jlabel = new JLabel("  ");
+            jlabel = new JLabel("Generation");
             startBtn.addActionListener(new ActionListener() {
             	public void actionPerformed(ActionEvent e) {
             		stopnow = false;
             		startGameOfLife();
             	}
             });
+            
             stopBtn.addActionListener(new ActionListener() {
             	public void actionPerformed(ActionEvent e) {
             		stopnow = true;
             	}
             });
+            patterns = new Pattern((int)(testPane.MAX_X/2), (int)(testPane.MAX_Y/2));
+            ActionListener cbActionListener = new ActionListener() {//add actionlistner to listen for change
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                	String selectedPattern = (String) patternsList.getSelectedItem();//get the selected item
+                	tickCount = 0;
+                	jlabel.setText("Generation: "+tickCount);
+                	testPane.setSeed(new ArrayList<Cell>());
+                    switch (selectedPattern) {//check for a match
+                        case "Block":
+                        	testPane.setSeed(patterns.getBlock());
+                            break;
+                        case "Beehive":
+                        	testPane.setSeed(patterns.getBeehive());
+                            break;
+                        case "Loaf":
+                        	testPane.setSeed(patterns.getLoaf());
+                            break;
+                        case "Boat":
+                        	testPane.setSeed(patterns.getBoat());
+                            break;
+                        case "Tub":
+                        	testPane.setSeed(patterns.getTub());
+                            break;
+                        case "Blinker":
+                        	testPane.setSeed(patterns.getBlinker());
+                            break;
+                        case "Toad":
+                        	testPane.setSeed(patterns.getToad());
+                            break;
+                        case "Beacon":
+                        	testPane.setSeed(patterns.getBeacon());
+                            break;
+                        case "Pulsar":
+                        	testPane.setSeed(patterns.getPulsar());
+                            break;
+                        case "Pentadecathlon":
+                        	testPane.setSeed(patterns.getPentadecathlon());
+                            break;
+                        case "Glider":
+                        	testPane.setSeed(patterns.getGlider());
+                            break;
+                    }
+                }
+            };
+
+            patternsList.addActionListener(cbActionListener);
             
-//            pane.add(jlabel, BorderLayout.CENTER);
-            pane.add(startBtn, BorderLayout.LINE_START);
-            pane.add(stopBtn, BorderLayout.LINE_END);
+
+            pane.add(testPane, BorderLayout.NORTH);
+            pane.add(jlabel, BorderLayout.SOUTH);
+            pane.add(startBtn, BorderLayout.WEST);
+            pane.add(stopBtn, BorderLayout.EAST);
+            pane.add(patternsList, BorderLayout.CENTER);
             //frame.add(jpanel); // !!
             frame.pack();
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
+            
+            
+//            String selectedPattern = (String) patternsList.getSelectedItem();
+//            switch(selectedPattern) {
+//            
+//	            case ("Block"): 
+//	            	testPane.setSeed(Pattern.StillLifes.getBlock());
+//	            	break;
+//            }
          }
       });
 //      new Timer(TIMER_DELAY, new ActionListener() {
@@ -84,6 +152,8 @@ public class GridWithStartAndStopButtons {
 //						   System.out.println("newGen["+ng.get(j).x+","+ng.get(j).y+"]="+ng.get(j).isAlive);
 //					   }
 					   testPane.setSeed(ng);
+					   tickCount++;
+					   jlabel.setText("Generation: "+tickCount);
 					   try        
 					   {
 					       Thread.sleep(TIMER_DELAY);
