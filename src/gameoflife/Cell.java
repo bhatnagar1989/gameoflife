@@ -7,7 +7,6 @@ public class Cell {
 	public int x;
 	public int y;
 	public boolean isAlive=false;
-	//public boolean newState=false;
 	public int numberOfAliveNeighbors=0;
 
 	
@@ -29,7 +28,6 @@ public class Cell {
 	public Cell kill() {return new Cell(x,y,false);}
 	public Cell reproduce() {return new Cell(x,y,true);}
 	public void countAliveNeighbors(ArrayList<Cell> currentGen) {
-		// TODO count the alive neighbors and place it inside this.numberOfAliveNeighbors
 		for (int k=0; k<currentGen.size(); k++) {
 			Cell cell = currentGen.get(k);
 			if (cell.getX()>=x-1 && cell.getX()<=x+1 && cell.getY()>=y-1 && cell.getY()<=y+1) {
@@ -40,7 +38,6 @@ public class Cell {
 				}
 			}
 		}
-		//System.out.println("["+x+","+y+"] neighbors = "+this.numberOfAliveNeighbors);
 	}
 
 }

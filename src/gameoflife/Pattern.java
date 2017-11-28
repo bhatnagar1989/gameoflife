@@ -11,7 +11,6 @@ public class Pattern {
 	}
 	
 		public ArrayList<Cell> getBlock(){
-//			int x = getGridCenterX()
 			ArrayList<Cell> seed = new ArrayList<Cell>();
 			seed.add(new Cell(centerX-1,centerY-1,true));
 			seed.add(new Cell(centerX-1,centerY,true));
@@ -96,26 +95,45 @@ public class Pattern {
 		}
 		
 
-		public static ArrayList<Cell> getPulsar() {
+		public ArrayList<Cell> getPentadecathlon() {
 			ArrayList<Cell> seed = new ArrayList<Cell>();
+			seed.add(new Cell(centerX,centerY-5,true));
+			seed.add(new Cell(centerX,centerY-4,true));
+			seed.add(new Cell(centerX-1,centerY-3,true));
+			seed.add(new Cell(centerX+1,centerY-3,true));
+			seed.add(new Cell(centerX,centerY-2,true));
+			seed.add(new Cell(centerX,centerY-1,true));
+			seed.add(new Cell(centerX,centerY,true));
+			seed.add(new Cell(centerX,centerY+1,true));
+			seed.add(new Cell(centerX-1,centerY+2,true));
+			seed.add(new Cell(centerX+1,centerY+2,true));
+			seed.add(new Cell(centerX,centerY+3,true));
+			seed.add(new Cell(centerX,centerY+4,true));
+			return seed;
+		}
+	
+		public  ArrayList<Cell> getGlider() {
+			ArrayList<Cell> seed = new ArrayList<Cell>();
+			seed.add(new Cell(centerX,centerY,true));
+			seed.add(new Cell(centerX+1,centerY,true));
+			seed.add(new Cell(centerX-1,centerY,true));
+			seed.add(new Cell(centerX,centerY-2,true));
+			seed.add(new Cell(centerX+1,centerY-1,true));
 			return seed;
 		}
 		
 
-		public static ArrayList<Cell> getPentadecathlon() {
+		public ArrayList<Cell> getLWSS() {
 			ArrayList<Cell> seed = new ArrayList<Cell>();
+			seed.add(new Cell(centerX,centerY,true));
+			seed.add(new Cell(centerX,centerY-2,true));
+			seed.add(new Cell(centerX+1,centerY-3,true));
+			seed.add(new Cell(centerX+2,centerY-3,true));
+			seed.add(new Cell(centerX+3,centerY-3,true));
+			seed.add(new Cell(centerX+4,centerY-3,true));
+			seed.add(new Cell(centerX+4,centerY-2,true));
+			seed.add(new Cell(centerX+4,centerY-1,true));
+			seed.add(new Cell(centerX+3,centerY,true));
 			return seed;
 		}
-	
-		public static ArrayList<Cell> getGlider() {
-			ArrayList<Cell> seed = new ArrayList<Cell>();
-			return seed;
-		}
-		
-
-		public static ArrayList<Cell> getLWSS() {
-			ArrayList<Cell> seed = new ArrayList<Cell>();
-			return seed;
-		}
-	
 }
