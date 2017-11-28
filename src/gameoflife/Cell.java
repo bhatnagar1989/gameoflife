@@ -6,7 +6,7 @@ public class Cell {
 
 	public int x;
 	public int y;
-	public boolean isAlive=false;
+	public boolean isAlive=false; //set the default state of the cell to false
 	public int numberOfAliveNeighbors=0;
 
 	
@@ -27,6 +27,13 @@ public class Cell {
 	public boolean isAlive() {return this.isAlive;}
 	public Cell kill() {return new Cell(x,y,false);}
 	public Cell reproduce() {return new Cell(x,y,true);}
+	
+	
+	/*
+	**
+	**
+	*/
+	
 	public void countAliveNeighbors(ArrayList<Cell> currentGen) {
 		for (int k=0; k<currentGen.size(); k++) {
 			Cell cell = currentGen.get(k);
@@ -34,10 +41,10 @@ public class Cell {
 				if (cell.getX() != this.x || cell.getY() != this.y) {
 					if (cell.isAlive()) {
 						this.numberOfAliveNeighbors++;
-					}
-				}
-			}
-		}
-	}
+					}//end if..
+				}//end if..
+			}//end if..
+		}//end for k
+	}//end countAliveNeighbors
 
-}
+}//end class
