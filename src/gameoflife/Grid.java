@@ -11,7 +11,7 @@ import javax.swing.border.MatteBorder;
 
 public class Grid {
 	
-   private static final int TIMER_DELAY = 100;
+   private static final int TIMER_DELAY = 100; //Speed of iterations
    private boolean stopnow = false;
    
    private GridPane gridPane = new GridPane();
@@ -19,6 +19,7 @@ public class Grid {
    public int tickCount = 0;
    private Pattern patterns;
    
+   //Initialing form elements
    private JButton startBtn = new JButton("Start");
    private JButton stopBtn = new JButton("Stop");
    private String[] golPatterns= new String[] {"Select Pattern","Block", "Beehive", 
@@ -36,7 +37,7 @@ public class Grid {
                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             }
-            JFrame frame = new JFrame("Game of Life");
+            JFrame frame = new JFrame("Game of Life"); //title of the frame
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setLayout(new BorderLayout());
             Container pane = frame.getContentPane();
@@ -65,7 +66,7 @@ public class Grid {
                 	tickCount = 0;
                 	genCountLabel.setText("Generation: "+tickCount);
                 	gridPane.setSeed(new ArrayList<Cell>());
-                    switch (selectedPattern) {//check for a match
+                    switch (selectedPattern) {//check for a matching pattern and call there respective functions from Class Pattern
                         case "Block":
                         	gridPane.setSeed(patterns.getBlock());
                             break;
@@ -99,13 +100,13 @@ public class Grid {
                         case "LWSS":
                         	gridPane.setSeed(patterns.getLWSS());
                             break;
-                    }
+                    }//end switch Pattern
                 }
-            };
+            }; //end ActionListener
 
             patternsList.addActionListener(cbActionListener);
             
-
+//Adding and setting postions of the different elements in the Frame
             pane.add(gridPane, BorderLayout.NORTH);
             pane.add(genCountLabel, BorderLayout.SOUTH);
             pane.add(startBtn, BorderLayout.WEST);
@@ -123,12 +124,13 @@ public class Grid {
 	   Thread worker = new Thread() {
 		   public void run() {
 		    
+			   //check if stop button isn't pressed, if not then continue the iterations
 			   while (!stopnow) {
 				   if (!stopnow) {
 					   ArrayList<Cell> ng = gol.evolve(gridPane.getSeed());
 					   gridPane.setSeed(ng);
 					   tickCount++;
-					   genCountLabel.setText("Generation: "+tickCount);
+					   genCountLabel.setText("Generation: "+tickCount); //Update Counter 
 					   try        
 					   {
 					       Thread.sleep(TIMER_DELAY);
@@ -153,6 +155,7 @@ public class Grid {
 
 class GridPane extends JPanel {
 	
+	//Set frame and grid drawing parameters
 	   public static final int MAX_X = 40;
 	   public static final int MAX_Y = MAX_X;
 	   Cell seed[][] = new Cell[MAX_X][MAX_Y];
@@ -162,17 +165,24 @@ class GridPane extends JPanel {
 	   private static final Color FILL_COLOR = Color.black;
 	   private Color defaultBackground;
 	
+	
+	/*
+	** function GridPane() takes the size of rows and columns defined above and draws
+	** the grid taking in count the dimensions of the cells, with the default background. 
+	** It also makes the border of the cell's with a black colour.
+	*/
+	
 	   public GridPane() {
 		   for (int i=0;i<MAX_X; i++) {
-			   for (int j=0;j<MAX_Y;j++) {
-				   seed[i][j] = new Cell(i,j,false);
-			   }
-		   }
+			for (int j=0;j<MAX_Y;j++) {
+				seed[i][j] = new Cell(i,j,false);
+			}end for j
+		   }//end for i
 	
-	   		defaultBackground = getBackground();
+	   	defaultBackground = getBackground();
 	
 	        MatteBorder border = new MatteBorder(1, 1, 1, 1, Color.BLACK);
-	   		this.setBorder(border);
+	   	this.setBorder(border);
 	   		
 		   addMouseListener(new MouseAdapter() {
 	           @Override
@@ -190,6 +200,12 @@ class GridPane extends JPanel {
 	           }
 	       });
 	   }
+	
+	/*
+	** function paintComponent changes the colour according to the state of the cell.
+	** It checks if cell is alive, then change colour to Black otherwise let it be
+	** the Default Colour.
+	*/
 	   
 	   @Override
 	   protected void paintComponent(Graphics g) {
@@ -203,28 +219,38 @@ class GridPane extends JPanel {
 	            else{
 	                g.setColor(defaultBackground);
 	                g.fillRect(x * CELL_WIDTH, y * CELL_WIDTH, CELL_WIDTH, CELL_WIDTH);
-	            }
+	            }//end if..
 	          g.setColor(Color.GRAY);
 	          g.drawRect(x * CELL_WIDTH, y * CELL_WIDTH, CELL_WIDTH, CELL_WIDTH);
-	         }
-	      }
-	   }
+	         }//end for x
+	      }//end for y
+	   }//end func..
+	
+	
+	/*
+	** function setSeed gets the new list of new generation.
+	** It moves the cell according to change in the state of the Cells.
+	** Moreover it also flipover the cells if the pattern grows outside 
+	** the Set frame size.
+	*/
 	   
 	   public void setSeed(ArrayList<Cell> newSeed) {
 	
 		   for (int y=0;y<MAX_Y;y++) {
-			   for (int x=0;x<MAX_X;x++) {
-				   seed[x][y] = new Cell(x,y,false);		   }
-		   }
+			for (int x=0;x<MAX_X;x++) {
+				seed[x][y] = new Cell(x,y,false);		   
+			}//end for x
+		   }//end for y
+		   
 		   for (int k=0; k<newSeed.size();k++) {
 			   int x1 = Math.abs(newSeed.get(k).x) % MAX_X;
 			   int y1 = Math.abs(newSeed.get(k).y) % MAX_Y;
 			   
 			   seed[x1][y1] = newSeed.get(k);
-		   }
-		   repaint();
+		   }//end for k
+		   repaint(); //repaint's the grid with new generation
 		   updateUI();
-	   }
+	   }//end func..
 	   
 	   public ArrayList<Cell> getSeed(){
 		   ArrayList<Cell> temp = new ArrayList<Cell>();
