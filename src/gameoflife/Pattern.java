@@ -6,8 +6,8 @@ public class Pattern {
 	
 	int centerX = 0, centerY = 0;
 	Pattern(int centerX, int centerY) {
-		this.centerX = centerX;
-		this.centerY = centerY;
+		this.centerX = centerX; //center of X (rows)
+		this.centerY = centerY; //center of X (columns)
 	}
 	
 		public ArrayList<Cell> getBlock(){
@@ -17,7 +17,7 @@ public class Pattern {
 			seed.add(new Cell(centerX,centerY-1,true));
 			seed.add(new Cell(centerX,centerY,true));
 			return seed;
-		}
+		}//end getBlock
 		
 		public static ArrayList<Cell> getBeehive(){
 			ArrayList<Cell> seed = new ArrayList<Cell>();
@@ -28,7 +28,7 @@ public class Pattern {
 			seed.add(new Cell(8,7,true));
 			seed.add(new Cell(8,8,true));
 			return seed;
-		}
+		}//end getBeehive
 		
 		public static ArrayList<Cell> getLoaf() {
 			ArrayList<Cell> seed = new ArrayList<Cell>();
@@ -40,7 +40,7 @@ public class Pattern {
 			seed.add(new Cell(7,9,true));
 			seed.add(new Cell(8,9,true));
 			return seed;
-		}
+		}//end getLoaf
 		
 		public static ArrayList<Cell> getBoat() {
 			ArrayList<Cell> seed = new ArrayList<Cell>();
@@ -50,7 +50,7 @@ public class Pattern {
 			seed.add(new Cell(6,7,true));
 			seed.add(new Cell(6,8,true));
 			return seed;
-		}
+		}//end getBoat
 		
 		public static ArrayList<Cell> getTub() {
 			ArrayList<Cell> seed = new ArrayList<Cell>();
@@ -59,7 +59,7 @@ public class Pattern {
 			seed.add(new Cell(8,8,true));
 			seed.add(new Cell(7,7,true));
 			return seed;
-		}
+		}//end getTub
 	
 	
 		public static ArrayList<Cell> getBlinker() {
@@ -68,7 +68,7 @@ public class Pattern {
 			seed.add(new Cell(7,7,true));
 			seed.add(new Cell(8,7,true));
 			return seed;
-		}
+		}//end getBlinker
 		
 
 		public static ArrayList<Cell> getToad() {
@@ -80,7 +80,7 @@ public class Pattern {
 			seed.add(new Cell(7,8,true));
 			seed.add(new Cell(7,9,true));
 			return seed;
-		}
+		}//end getToad
 		
 
 		public static ArrayList<Cell> getBeacon() {
@@ -92,7 +92,7 @@ public class Pattern {
 			seed.add(new Cell(9,9,true));
 			seed.add(new Cell(8,9,true));
 			return seed;
-		}
+		}//end getBeacon
 		
 
 		public ArrayList<Cell> getPentadecathlon() {
@@ -110,7 +110,7 @@ public class Pattern {
 			seed.add(new Cell(centerX,centerY+3,true));
 			seed.add(new Cell(centerX,centerY+4,true));
 			return seed;
-		}
+		}//end getPentadecathlon
 	
 		public  ArrayList<Cell> getGlider() {
 			ArrayList<Cell> seed = new ArrayList<Cell>();
@@ -120,7 +120,7 @@ public class Pattern {
 			seed.add(new Cell(centerX,centerY-2,true));
 			seed.add(new Cell(centerX+1,centerY-1,true));
 			return seed;
-		}
+		}//end getGlider
 		
 
 		public ArrayList<Cell> getLWSS() {
@@ -135,5 +135,5 @@ public class Pattern {
 			seed.add(new Cell(centerX+4,centerY-1,true));
 			seed.add(new Cell(centerX+3,centerY,true));
 			return seed;
-		}
-}
+		}//end getLWSS
+}//end class..
