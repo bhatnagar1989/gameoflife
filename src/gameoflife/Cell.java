@@ -21,17 +21,18 @@ public class Cell {
 		this.isAlive = isAlive;
 	}
 	
-
+	//Declaring public variables
 	public int getX() {return this.x;}
 	public int getY() {return this.y;}
 	public boolean isAlive() {return this.isAlive;}
-	public Cell kill() {return new Cell(x,y,false);}
-	public Cell reproduce() {return new Cell(x,y,true);}
+	public Cell kill() {return new Cell(x,y,false);} //to change cell state to false
+	public Cell reproduce() {return new Cell(x,y,true);} //to change cell state to true
 	
 	
 	/*
-	** 
-	**
+	** countAliveNeighbors() count the number of Alive neighbours by checking around the cell
+	** in consideration. This is required to imply the rules of the games i.e. to kill, die or to 
+	** make the fourth cell alive
 	*/
 	
 	public void countAliveNeighbors(ArrayList<Cell> currentGen) {
