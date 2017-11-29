@@ -19,14 +19,14 @@ public class Pattern {
 			return seed;
 		}//end getBlock
 		
-		public static ArrayList<Cell> getBeehive(){
+		public ArrayList<Cell> getBeehive(){
 			ArrayList<Cell> seed = new ArrayList<Cell>();
-			seed.add(new Cell(7,6,true));
-			seed.add(new Cell(7,7,true));
-			seed.add(new Cell(6,8,true));
-			seed.add(new Cell(7,9,true));
-			seed.add(new Cell(8,7,true));
-			seed.add(new Cell(8,8,true));
+			seed.add(new Cell(centerX-1,centerY-2,true));
+			seed.add(new Cell(centerX-2,centerY-1,true));
+			seed.add(new Cell(centerX-2,centerY,true));
+			seed.add(new Cell(centerX-1,centerY+1,true));
+			seed.add(new Cell(centerX,centerY-1,true));
+			seed.add(new Cell(centerX,centerY,true));
 			return seed;
 		}//end getBeehive
 		

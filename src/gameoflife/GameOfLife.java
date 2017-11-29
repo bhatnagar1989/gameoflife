@@ -16,13 +16,11 @@ public class GameOfLife {
 	
 	public ArrayList<Cell> evolve(ArrayList<Cell> seed) {
 		this.currentGeneration = seed; // getting seed from the grid
-		
 		this.generatePointsOfInterest();
 		checkRules();
 		this.currentGeneration = this.nextGeneration;
 		this.nextGeneration = new ArrayList<Cell>();
 		return currentGeneration;
-	
 	}
 	
 	public void checkRules() {
@@ -31,19 +29,24 @@ public class GameOfLife {
 			
 			cell.countAliveNeighbors(currentGeneration);
 			
-			if (!cell.isAlive && cell.numberOfAliveNeighbors == 3) {
+			if (!cell.isAlive() && cell.numberOfAliveNeighbors == 3) {
 				this.nextGeneration.add(cell.reproduce());
 			}
-			else if(cell.isAlive && cell.numberOfAliveNeighbors<2 && cell.numberOfAliveNeighbors >3) {
+			else if(cell.isAlive() && cell.numberOfAliveNeighbors<2 && cell.numberOfAliveNeighbors >3) {
 				cell.kill();
 			}
-			else if(cell.isAlive && (cell.numberOfAliveNeighbors==2 || cell.numberOfAliveNeighbors==3)) {
+			else if(cell.isAlive() && (cell.numberOfAliveNeighbors==2 || cell.numberOfAliveNeighbors==3)) {
 				this.nextGeneration.add(cell.reproduce());
 			}
 		}
 		
 	}
 	
+	/*
+	 * This function generatePointsOfInterest() takes the list of the current alive cells (currentGeneration)
+	 * and creates a list of neighboring dead cells of every alive cell. 
+	 * 
+	 * */
 	public void generatePointsOfInterest() {
 		int total = this.currentGeneration.size();
 		for (int c = 0; c < total; c++) {

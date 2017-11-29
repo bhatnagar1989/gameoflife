@@ -19,7 +19,7 @@ public class Grid {
    public int tickCount = 0;
    private Pattern patterns;
    
-   //Initialing form elements
+   //Initializing form elements
    private JButton startBtn = new JButton("Start");
    private JButton stopBtn = new JButton("Stop");
    private String[] golPatterns= new String[] {"Select Pattern","Block", "Beehive", 
@@ -176,7 +176,7 @@ class GridPane extends JPanel {
 		   for (int i=0;i<MAX_X; i++) {
 			for (int j=0;j<MAX_Y;j++) {
 				seed[i][j] = new Cell(i,j,false);
-			}end for j
+			}//end for j
 		   }//end for i
 	
 	   	defaultBackground = getBackground();
@@ -189,13 +189,13 @@ class GridPane extends JPanel {
 	           public void mouseClicked(MouseEvent e) {
 	        	   int x1 = (int)(e.getX()/CELL_WIDTH);
 	        	   int y1 = (int)(e.getY()/CELL_WIDTH);
-	        	   if(seed[x1][y1].isAlive) {
+	        	   if(seed[x1][y1].isAlive()) {
 	        		   seed[x1][y1].isAlive = false;
 	        	   }
 	        	   else {
 	        		   seed[x1][y1].isAlive = true;
 	        	   }
-	        	   System.out.println("["+x1+","+y1+"]");
+//	        	   System.out.println("["+x1+","+y1+"]");
 	               repaint();
 	           }
 	       });
@@ -243,8 +243,8 @@ class GridPane extends JPanel {
 		   }//end for y
 		   
 		   for (int k=0; k<newSeed.size();k++) {
-			   int x1 = Math.abs(newSeed.get(k).x) % MAX_X;
-			   int y1 = Math.abs(newSeed.get(k).y) % MAX_Y;
+			   int x1 = Math.abs(newSeed.get(k).getX()) % MAX_X;
+			   int y1 = Math.abs(newSeed.get(k).getY()) % MAX_Y;
 			   
 			   seed[x1][y1] = newSeed.get(k);
 		   }//end for k

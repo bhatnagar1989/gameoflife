@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Cell {
 
-	public int x;
-	public int y;
+	private int x;
+	private int y;
 	public boolean isAlive=false; //set the default state of the cell to false
 	public int numberOfAliveNeighbors=0;
 
@@ -30,7 +30,7 @@ public class Cell {
 	
 	
 	/*
-	**
+	** 
 	**
 	*/
 	
