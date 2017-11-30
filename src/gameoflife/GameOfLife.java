@@ -23,6 +23,10 @@ public class GameOfLife {
 		return currentGeneration;
 	}
 	
+	/*
+	* This function checks and apply the rules accordingly. This plays a major part in evolving the Game of Life.
+	*/
+	
 	public void checkRules() {
 		for(int i = 0; i < this.currentGeneration.size(); i++) {
 			Cell cell = this.currentGeneration.get(i);
@@ -43,9 +47,8 @@ public class GameOfLife {
 	}
 	
 	/*
-	 * This function generatePointsOfInterest() takes the list of the current alive cells (currentGeneration)
-	 * and creates a list of neighboring dead cells of every alive cell. 
-	 * 
+	 * Function generatePointsOfInterest() takes the list of the current alive cells (currentGeneration)
+	 * and creates a list of neighbouring dead cells, of every alive cell. 
 	 * */
 	public void generatePointsOfInterest() {
 		int total = this.currentGeneration.size();
