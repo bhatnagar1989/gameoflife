@@ -1,3 +1,14 @@
+/**
+* The Pattern class is a subset of Grid. It contains predefined
+* patterns of Game of Life. A pattern is predefined using the 
+* X and Y coordinates on the grid. A pattern get populated on the 
+* grid once called using the drop down list in the UI Frame.
+*
+* @author  Pranav and Kostas
+* @version 1.0
+* @since   2017-11-29 
+*/
+
 package gameoflife;
 
 import java.util.ArrayList;
